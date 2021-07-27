@@ -18,9 +18,19 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from api_lojinha.views import *
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('produtos', ListarProdutoAPIView, ProdutoAPIView)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('produto.urls')),
+    path('produtos/', ListarProdutoAPIView.as_view(), name='listar_produtos'),
+    path('produtos/<int:pk>/', ProdutoAPIView.as_view(), name='listar_produto'),
+    path('auth/', include('rest_framework.urls')),
     path('pedidos/', include('pedido.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

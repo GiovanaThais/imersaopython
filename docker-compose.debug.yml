@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  imersaopython:
+    image: imersaopython
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 api_lojinha/serializers_pedido.py runserver 0.0.0.0:8003 --nothreading --noreload"]
+    ports:
+      - 8003:8003
+      - 5678:5678

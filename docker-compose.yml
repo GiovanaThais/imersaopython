@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  imersaopython:
+    container_name: imersaopython
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: tail -f /dev/null
+    ports:
+      - 8003:8003
+    volumes:
+      - .:app
+    networks:
+      - private
+    depends_on: 
+      - database
+  
+  database:
+    container_name: delivery_database
+    image: postgresql:13
+    ports:
+      - 5432:5432
+    volumes:
+      - imersaopython_pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATASE_USER}
+      POSTGRES_PASSWORD: ${DATASE_PASSWORD}
+      POSTGRES_DB: ${DATASE_NAME}
+
+networks:
+    private:
+
+volumes:  
+    imersaopython_pgdata:

@@ -125,3 +125,4 @@ def remover_carrinho(request, id):
     request.session['carrinho'].pop(id)
     request.session.save()
     return redirect('/ver_carrinho')
+    
