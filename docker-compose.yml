@@ -10,23 +10,28 @@ services:
     ports:
       - 8003:8003
     volumes:
-      - .:app
+      - .:/app
     networks:
       - private
     depends_on: 
       - database
   
   database:
-    container_name: delivery_database
-    image: postgresql:13
+    container_name: database
+    image: postgres:12.1-alpine
     ports:
-      - 5432:5432
+      - 5433:5432
+    expose: 
+      - '5433'
     volumes:
       - imersaopython_pgdata:/var/lib/postgresql/data
+    command: -p 5433
+    networks:
+      - private
     environment:
-      POSTGRES_USER: ${DATASE_USER}
-      POSTGRES_PASSWORD: ${DATASE_PASSWORD}
-      POSTGRES_DB: ${DATASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
 
 networks:
     private:

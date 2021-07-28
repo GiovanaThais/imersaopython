@@ -2,6 +2,7 @@
 FROM python:3.8-slim-buster
 
 EXPOSE 8003
+EXPOSE 5433
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
